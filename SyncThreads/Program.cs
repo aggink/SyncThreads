@@ -19,11 +19,15 @@ class Program
     static void Main()
     {
         // Semaphore
+        Console.WriteLine("Semaphore");
         var threads1 = new SyncThreads.SemaphoreSlimExample.CoordinatorThread();
         threads1.Run();
         threads1.Dispose();
 
+        Console.WriteLine();
+
         // ManualResetEvent
+        Console.WriteLine("ManualResetEvent");
         var threads2 = new SyncThreads.ManualResetEventExample.CoordinatorThread();
         threads2.Run();
         threads2.Dispose();

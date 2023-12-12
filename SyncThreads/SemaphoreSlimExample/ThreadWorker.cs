@@ -12,18 +12,24 @@ public sealed class ThreadWorker
 
         try
         {
+            Console.WriteLine($"{threadName}: Waiting...");
+
             semaphore.Wait();
 
             while (threadId != coordinator.CurrentThread)
             {
+                Console.WriteLine($"{threadName}: {threadId} != {coordinator.CurrentThread}");
+                
                 semaphore.Release();
 
                 Thread.Sleep(10);
 
+                Console.WriteLine($"{threadName}: Waiting...");
+
                 semaphore.Wait();
             }
 
-            Console.WriteLine($"{threadName}: Acquired Coordinator, executing...");
+            Console.WriteLine($"{threadName}: Executing...");
 
             action(_wordApp);
 
@@ -35,7 +41,7 @@ public sealed class ThreadWorker
         }
         finally
         {
-            Console.WriteLine($"{threadName}: Released Coordinator.");
+            Console.WriteLine($"{threadName}: Сompleted.");
 
             semaphore.Release();
         }

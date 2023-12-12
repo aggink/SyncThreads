@@ -10,9 +10,11 @@ public sealed class ThreadWorker
     {
         try
         {
+            Console.WriteLine($"{threadName}: Waiting...");
+
             currentEvent.WaitOne();
 
-            Console.WriteLine($"{threadName}: Acquired Coordinator, executing...");
+            Console.WriteLine($"{threadName}: Executing...");
 
             action(_wordApp);
         }
@@ -22,7 +24,7 @@ public sealed class ThreadWorker
         }
         finally
         {
-            Console.WriteLine($"{threadName}: Released Coordinator.");
+            Console.WriteLine($"{threadName}: Сompleted.");
 
             currentEvent.Reset();
             nextEvent.Set();

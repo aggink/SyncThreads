@@ -20,7 +20,7 @@ public static class DocumentHelper
         Console.WriteLine("Filling the document...");
 
         var document = wordApp.ActiveDocument;
-        document.Content.Text = "This is the content of the document.";
+        document.Content.Text = "Full description of the document.";
 
         Thread.Sleep(2000);
     }
