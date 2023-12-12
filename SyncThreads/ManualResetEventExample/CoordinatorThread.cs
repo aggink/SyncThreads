@@ -17,17 +17,11 @@ public sealed class CoordinatorThread : IDisposable
 
     public void Run()
     {
-        var thread1 = new Thread(() => _threadWorker.Execute("Thread 1 - Create document", _threadEvent_1, _threadEvent_2, DocumentHelper.CreateDocument));
-        var thread2 = new Thread(() => _threadWorker.Execute("Thread 2 - Fill document", _threadEvent_2, _threadEvent_3, DocumentHelper.FillDocument));
-        var thread3 = new Thread(() => _threadWorker.Execute("Thread 3 - Save document", _threadEvent_3, _threadEvent_1, DocumentHelper.SaveDocument));
+        var thread1 = Task.Run(() => _threadWorker.Execute("Thread 1 - Create document", _threadEvent_1, _threadEvent_2, DocumentHelper.CreateDocument));
+        var thread2 = Task.Run(() => _threadWorker.Execute("Thread 2 - Fill document", _threadEvent_2, _threadEvent_3, DocumentHelper.FillDocument));
+        var thread3 = Task.Run(() => _threadWorker.Execute("Thread 3 - Save document", _threadEvent_3, _threadEvent_1, DocumentHelper.SaveDocument));
 
-        thread1.Start();
-        thread2.Start();
-        thread3.Start();
-
-        thread1.Join();
-        thread2.Join();
-        thread3.Join();
+        Task.WhenAll(thread1, thread2, thread3).Wait();
     }
 
     public void Dispose()
