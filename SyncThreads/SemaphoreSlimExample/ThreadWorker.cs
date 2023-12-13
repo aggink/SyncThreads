@@ -33,7 +33,7 @@ public sealed class ThreadWorker
 
             action(_wordApp);
 
-            coordinator.CurrentThread = (coordinator.CurrentThread % 3) + 1;
+            coordinator.CurrentThread = (coordinator.CurrentThread % coordinator.ThreadCount) + 1;
         }
         catch (Exception ex)
         {
